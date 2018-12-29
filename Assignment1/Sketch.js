@@ -35,7 +35,7 @@ function drawAndroid() {
   pop();
 
   function drawBody() {
-    const bodyWidth = 97, bodyHeight = 83, cornerRadius = 12;
+    const bodyWidth = 97, bodyHeight = 83, cornerRadius = 12, neckHeight = 4;
     push();
       noStroke();
       rect(-bodyWidth / 2, 0, bodyWidth, bodyHeight, 0, 0, cornerRadius, cornerRadius);
@@ -44,6 +44,10 @@ function drawAndroid() {
     push();
       translate(0, bodyHeight);
       drawLegs();
+    pop();
+    push();
+      translate(0, -neckHeight);
+      drawHead();
     pop();
 
     function drawArms() {
@@ -92,6 +96,14 @@ function drawAndroid() {
           }
         pop();
       }
+    }
+
+    function drawHead() {
+      const headHeight = 91;
+      push();
+        noStroke();
+        arc(0, 0, bodyWidth, headHeight, PI, TWO_PI);
+      pop();
     }
   }
 }
