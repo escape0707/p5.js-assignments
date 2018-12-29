@@ -105,6 +105,7 @@ function drawAndroid() {
         arc(0, 0, bodyWidth, headHeight, PI, TWO_PI);
       pop();
       drawEyes();
+      drawAntennas();
 
       function drawEyes() {
         const eyeDistance = 23, eyePosY = -22;
@@ -123,6 +124,26 @@ function drawAndroid() {
             stroke('white');
             strokeWeight(eyeSize);
             point(0, 0);
+          pop();
+        }
+      }
+
+      function drawAntennas() {
+        const antennaX = 23, antennaY = -40;
+        push();
+          translate(antennaX, antennaY);
+          drawAntenna(false);
+        pop();
+        push();
+          translate(-antennaX, antennaY);
+          drawAntenna(true);
+        pop();
+
+        function drawAntenna(isRightSideAntenna) {
+          const antennaDeltaX = 7, antennaDeltaY = -14, antennaWidth = 4;
+          push();
+            strokeWeight(antennaWidth);
+            line(0, 0, isRightSideAntenna ? -antennaDeltaX : antennaDeltaX, antennaDeltaY);
           pop();
         }
       }
