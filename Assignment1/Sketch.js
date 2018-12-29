@@ -41,6 +41,10 @@ function drawAndroid() {
       rect(-bodyWidth / 2, 0, bodyWidth, bodyHeight, 0, 0, cornerRadius, cornerRadius);
     pop();
     drawArms();
+    push();
+      translate(0, bodyHeight);
+      drawLegs();
+    pop();
 
     function drawArms() {
       const shoulderWidth = 64, shoulderHeight = 9;
@@ -58,6 +62,34 @@ function drawAndroid() {
         push();
           strokeWeight(armThickness);
           line(0, 0, 0, armLength);
+        pop();
+      }
+    }
+
+    // Interseting: This part dividing method may have one-pixel line drawed twice on the joining age?
+    // Can't figure out visually during prototyping phase. So, maybe "never mind it"...
+    function drawLegs() {
+      const hipWidth = 36;
+      push();
+        translate(hipWidth / 2, 0);
+        drawLeg();
+      pop();
+      push();
+        translate(-hipWidth / 2, 0);
+        drawLeg();
+      pop();
+
+      function drawLeg() {
+        const legLength = 24, legThickness = 22;
+        push();
+          strokeCap(SQUARE);
+          strokeWeight(legThickness);
+          line(0, 0, 0, legLength);
+          /* drawFoot() */ {
+            fill(debugColor);
+            noStroke()
+            arc(0, legLength, legThickness, legThickness, 0, PI);
+          }
         pop();
       }
     }
