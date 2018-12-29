@@ -1,5 +1,4 @@
 /// <reference path="../TypeScript/p5.global-mode.d.ts" />
-var winMidX, winMidY;
 // var foobar2000Logo, androidLogo;
 var androidColor = "#0000ff"; // Changed to blue since red might be too frightening...
 var gui;
@@ -13,8 +12,6 @@ var gui;
 function setup() {
   var canvas = createCanvas(windowWidth, windowHeight);
   canvas.style('display', 'block');
-  winMidX = windowWidth / 2;
-  winMidY = windowHeight / 2;
 
   // gui = createGui('Temporary Variables');
   // sliderRange(-100, 100, 1);
@@ -161,7 +158,7 @@ function draw() {
   clear();
   resetMatrix();
 
-  translate(winMidX, winMidY);
+  translate(windowWidth / 2, windowHeight / 2);
   // imageCentered(androidLogo, 0, 0);
   drawAndroid();
 
@@ -173,5 +170,6 @@ function draw() {
 // }
 
 function windowResized() {
-  resizeCanvas(windowHeight, windowWidth);
+  resizeCanvas(windowWidth, windowHeight);
+  redraw();
 }
