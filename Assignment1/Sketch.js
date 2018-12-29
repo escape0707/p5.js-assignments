@@ -1,14 +1,14 @@
 /// <reference path="../TypeScript/p5.global-mode.d.ts" />
 var winMidX, winMidY;
-var foobar2000Logo, androidLogo;
-var androidColor = "#ff0000";
+// var foobar2000Logo, androidLogo;
+var androidColor = "#0000ff"; // Changed to blue since red might be too frightening...
 var gui;
-var x = 0, y = 0, z = 0, a = 0, b = 0, c = 0;
+// var x = 0, y = 0, z = 0, a = 0, b = 0, c = 0;
 
-function preload() {
-  foobar2000Logo = loadImage("Foobar 2000 Logo.png");
-  androidLogo = loadImage("Android Logo.png");
-}
+// function preload() {
+//   foobar2000Logo = loadImage("Foobar 2000 Logo.png");
+//   androidLogo = loadImage("Android Logo.png");
+// }
 
 function setup() {
   var canvas = createCanvas(windowWidth, windowHeight);
@@ -16,19 +16,19 @@ function setup() {
   winMidX = windowWidth / 2;
   winMidY = windowHeight / 2;
 
-  gui = createGui('Temporary Variables');
-  sliderRange(-100, 100, 1);
-  gui.addGlobals('androidColor');
-  gui.addGlobals('x', 'y', 'z', 'a', 'b', 'c');
-  noLoop();
+  // gui = createGui('Temporary Variables');
+  // sliderRange(-100, 100, 1);
+  // gui.addGlobals('androidColor');
+  // gui.addGlobals('x', 'y', 'z', 'a', 'b', 'c');
+  // noLoop();
 }
 
 function drawAndroid() {
-  let debugColor = color(androidColor);
-  debugColor.setAlpha(150);
+  // let debugColor = color(androidColor);
+  // debugColor.setAlpha(150);
   push();
-    fill(debugColor);
-    stroke(debugColor);
+    fill(androidColor);
+    stroke(androidColor);
     const deltaX = 0, deltaY = -29;
     translate(deltaX, deltaY);
     drawBody();
@@ -90,7 +90,6 @@ function drawAndroid() {
           strokeWeight(legThickness);
           line(0, 0, 0, legLength);
           /* drawFoot() */ {
-            fill(debugColor);
             noStroke()
             arc(0, legLength, legThickness, legThickness, 0, PI);
           }
@@ -163,15 +162,15 @@ function draw() {
   resetMatrix();
 
   translate(winMidX, winMidY);
-  imageCentered(androidLogo, 0, 0);
+  // imageCentered(androidLogo, 0, 0);
   drawAndroid();
 
   pop();
 }
 
-function imageCentered(img, x, y) {
-  image(img, x - img.width / 2, y - img.height / 2);
-}
+// function imageCentered(img, x, y) {
+//   image(img, x - img.width / 2, y - img.height / 2);
+// }
 
 function windowResized() {
   resizeCanvas(windowHeight, windowWidth);
