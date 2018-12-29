@@ -11,8 +11,10 @@ let ay = new Array(num);
 const magnetism = 10.0;
 const radius = 1;
 const deceleration = 0.95;
+const lorentz = 0.2;
 
 let sketchStarted = false;
+let clicked = false;
 let mX, mY;
 
 function newParticle(i) {
@@ -34,7 +36,7 @@ function setup() {
     noFill();
     textAlign(CENTER, CENTER);
     textSize(50);
-    text('    Move your mouse...', width / 2, height / 2);
+    text('    Move or click your mouse...', width / 2, height / 2);
   pop();
 
   for (let i = 0; i < num; i++) {
@@ -48,20 +50,32 @@ function setup() {
   noLoop();
 }
 
-function draw() {
+function draw() {  
   if (!sketchStarted) {
     return;
   }
-
+    
+  if (!clicked) {
     mX = mouseX;
     mY = mouseY;
+  }
 
   for (let i = 0; i < num; i++) {
     let distance = dist(mX, mY, x[i], y[i]);
 
-    if (distance > 3) {
+    if (clicked && distance < 3) {
+      newParticle(i);
+      continue;
+    }
+
+    if (clicked || distance > 3) {
       ax[i] = magnetism * (mX - x[i]) / (distance * distance);
       ay[i] = magnetism * (mY - y[i]) / (distance * distance);
+    }
+    
+    if (clicked) {
+      ay[i] += vx[i] * lorentz;
+      ax[i] += -vy[i] * lorentz;
     }
 
     vx[i] += ax[i];
@@ -93,6 +107,16 @@ function startSketch() {
 
 function mouseMoved() {
   if (!sketchStarted) {
+    startSketch();
+  }
+  return false;
+}
+
+function mouseClicked() {
+  if (!clicked) {
+    clicked = true;
+    mX = mouseX;
+    mY = mouseY;
     startSketch();
   }
   return false;
