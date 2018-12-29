@@ -1,3 +1,5 @@
+/// <reference path="../TypeScript/p5.global-mode.d.ts" />
+
 var num = 1000;
 var vx = new Array(num);
 var vy = new Array(num);
