@@ -25,7 +25,20 @@ function setup() {
 
 function drawAndroid() {
   push();
+    fill(androidColor);
+    stroke(androidColor);
+    const deltaX = 0, deltaY = -29;
+    translate(deltaX, deltaY);
+    drawBody();
   pop();
+
+  function drawBody() {
+    push();
+      noStroke();
+      const bodyWidth = 97, bodyHeight = 83, cornerRadius = 12;
+      rect(-bodyWidth / 2, 0, bodyWidth, bodyHeight, 0, 0, cornerRadius, cornerRadius);
+    pop();
+  }
 }
 
 // Note that according to Translate()'s reference:
