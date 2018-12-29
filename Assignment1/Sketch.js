@@ -17,15 +17,33 @@ function setup() {
   winMidY = windowHeight / 2;
 
   gui = createGui('Temporary Variables');
+  sliderRange(-100, 100, 1);
   gui.addGlobals('androidColor');
   gui.addGlobals('x', 'y', 'z', 'a', 'b', 'c');
   noLoop();
+}
+
+function drawAndroid() {
+  push();
+  pop();
+}
+
+// Note that according to Translate()'s reference:
+// "If translate() is called within draw(),
+//  the transformation is reset when the loop begins again.""
+// And it seems to get reset even after called in setup(), too.
+// WARNING: HOWEVER, if you used noLoop() and use redraw() to draw,
+//          it seems like it won't reset!!!
+function draw() {
+  push()
+  clear();
+  resetMatrix();
 
   translate(winMidX, winMidY);
   imageCentered(androidLogo, 0, 0);
-}
+  drawAndroid();
 
-function draw() {
+  pop();
 }
 
 function imageCentered(img, x, y) {
