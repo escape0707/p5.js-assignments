@@ -11,7 +11,8 @@ var radius = 1;
 var deceleration = 0.95;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  var canvas = createCanvas(windowWidth, windowHeight);
+  canvas.style('display', 'block');
 
   noStroke();
   fill(0);
