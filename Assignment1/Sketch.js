@@ -104,6 +104,28 @@ function drawAndroid() {
         noStroke();
         arc(0, 0, bodyWidth, headHeight, PI, TWO_PI);
       pop();
+      drawEyes();
+
+      function drawEyes() {
+        const eyeDistance = 23, eyePosY = -22;
+        push();
+          translate(eyeDistance, eyePosY);
+          drawEye();
+        pop();
+        push();
+          translate(-eyeDistance, eyePosY);
+          drawEye();
+        pop();
+
+        function drawEye() {
+          const eyeSize = 8;
+          push();
+            stroke('white');
+            strokeWeight(eyeSize);
+            point(0, 0);
+          pop();
+        }
+      }
     }
   }
 }
