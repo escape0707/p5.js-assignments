@@ -1,21 +1,31 @@
 /// <reference path="../TypeScript/p5.global-mode.d.ts" />
 
-var num = 1000;
-var vx = new Array(num);
-var vy = new Array(num);
-var x = new Array(num);
-var y = new Array(num);
-var ax = new Array(num);
-var ay = new Array(num);
+let num = 1000;
+let vx = new Array(num);
+let vy = new Array(num);
+let x = new Array(num);
+let y = new Array(num);
+let ax = new Array(num);
+let ay = new Array(num);
 
-var magnetism = 10.0;
-var radius = 1;
-var deceleration = 0.95;
+const magnetism = 10.0;
+const radius = 1;
+const deceleration = 0.95;
 
-var sketchStarted = false;
+let sketchStarted = false;
+let mX, mY;
+
+function newParticle(i) {
+  x[i] = random(width);
+  y[i] = random(height);
+  vx[i] = 0;
+  vy[i] = 0;
+  ax[i] = 0;
+  ay[i] = 0;
+}
 
 function setup() {
-  var canvas = createCanvas(windowWidth, windowHeight);
+  let canvas = createCanvas(windowWidth, windowHeight);
   canvas.style('display', 'block');
 
   background(0);
@@ -27,30 +37,33 @@ function setup() {
     text('    Move your mouse...', width / 2, height / 2);
   pop();
 
-  for (var i = 0; i < num; i++) {
-    x[i] = random(width);
-    y[i] = random(height);
-    vx[i] = 0;
-    vy[i] = 0;
-    ax[i] = 0;
-    ay[i] = 0;
+  for (let i = 0; i < num; i++) {
+    newParticle(i);
   }
-}
 
+  noStroke();
+  ellipseMode(RADIUS);
+  blendMode(ADD);
+
+  noLoop();
+}
 
 function draw() {
   if (!sketchStarted) {
     return;
   }
 
+    mX = mouseX;
+    mY = mouseY;
 
-  for (var i = 0; i < num; i++) {
-    var distance = dist(mouseX, mouseY, x[i], y[i]);
+  for (let i = 0; i < num; i++) {
+    let distance = dist(mX, mY, x[i], y[i]);
 
     if (distance > 3) {
-      ax[i] = magnetism * (mouseX - x[i]) / (distance * distance);
-      ay[i] = magnetism * (mouseY - y[i]) / (distance * distance);
+      ax[i] = magnetism * (mX - x[i]) / (distance * distance);
+      ay[i] = magnetism * (mY - y[i]) / (distance * distance);
     }
+
     vx[i] += ax[i];
     vy[i] += ay[i];
 
@@ -60,22 +73,27 @@ function draw() {
     x[i] += vx[i];
     y[i] += vy[i];
 
-    var velocity = dist(0, 0, vx[i], vy[i]);
-    var r = map(velocity, 0, 5, 0, 255);
-    var g = map(velocity, 0, 5, 64, 255);
-    var b = map(velocity, 0, 5, 128, 255);
+    let velocity = dist(0, 0, vx[i], vy[i]);
+    let r = map(velocity, 0, 5, 0, 255);
+    let g = map(velocity, 0, 5, 64, 255);
+    let b = map(velocity, 0, 5, 128, 255);
     fill(r, g, b, 32);
     ellipse(x[i], y[i], radius, radius);
   }
 }
 
+function startSketch() {
+  sketchStarted = true;
+  push();
+    blendMode(BLEND);
+    background(0);
+  pop();
+  loop();
+}
+
 function mouseMoved() {
   if (!sketchStarted) {
-    sketchStarted = true;
-    background(0);
-    noStroke();
-    ellipseMode(RADIUS);
-    blendMode(ADD);
+    startSketch();
   }
   return false;
 }
