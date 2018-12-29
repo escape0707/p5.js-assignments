@@ -59,3 +59,7 @@ function draw() {
     ellipse(x[i], y[i], radius, radius);
   }
 }
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
