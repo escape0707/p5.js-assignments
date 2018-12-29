@@ -12,15 +12,20 @@ var magnetism = 10.0;
 var radius = 1;
 var deceleration = 0.95;
 
+var sketchStarted = false;
+
 function setup() {
   var canvas = createCanvas(windowWidth, windowHeight);
   canvas.style('display', 'block');
 
-  noStroke();
-  fill(0);
-  ellipseMode(RADIUS);
   background(0);
-  blendMode(ADD);
+  push();
+    stroke('#077def');
+    noFill();
+    textAlign(CENTER, CENTER);
+    textSize(50);
+    text('    Move your mouse...', width / 2, height / 2);
+  pop();
 
   for (var i = 0; i < num; i++) {
     x[i] = random(width);
@@ -34,8 +39,10 @@ function setup() {
 
 
 function draw() {
-  fill(0, 0, 0);
-  rect(0, 0, width, height);
+  if (!sketchStarted) {
+    return;
+  }
+
 
   for (var i = 0; i < num; i++) {
     var distance = dist(mouseX, mouseY, x[i], y[i]);
@@ -60,6 +67,17 @@ function draw() {
     fill(r, g, b, 32);
     ellipse(x[i], y[i], radius, radius);
   }
+}
+
+function mouseMoved() {
+  if (!sketchStarted) {
+    sketchStarted = true;
+    background(0);
+    noStroke();
+    ellipseMode(RADIUS);
+    blendMode(ADD);
+  }
+  return false;
 }
 
 function windowResized() {
