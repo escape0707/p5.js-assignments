@@ -35,11 +35,32 @@ function drawAndroid() {
   pop();
 
   function drawBody() {
+    const bodyWidth = 97, bodyHeight = 83, cornerRadius = 12;
     push();
       noStroke();
-      const bodyWidth = 97, bodyHeight = 83, cornerRadius = 12;
       rect(-bodyWidth / 2, 0, bodyWidth, bodyHeight, 0, 0, cornerRadius, cornerRadius);
     pop();
+    drawArms();
+
+    function drawArms() {
+      const shoulderWidth = 64, shoulderHeight = 9;
+      push();
+        translate(shoulderWidth, shoulderHeight);
+        drawArm();
+      pop();
+      push();
+        translate(-shoulderWidth, shoulderHeight);
+        drawArm();
+      pop();
+
+      function drawArm() {
+        const armThickness = 22, armLength = 46;
+        push();
+          strokeWeight(armThickness);
+          line(0, 0, 0, armLength);
+        pop();
+      }
+    }
   }
 }
 
