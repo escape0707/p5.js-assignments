@@ -24,9 +24,11 @@ function setup() {
 }
 
 function drawAndroid() {
+  let debugColor = color(androidColor);
+  debugColor.setAlpha(150);
   push();
-    fill(androidColor);
-    stroke(androidColor);
+    fill(debugColor);
+    stroke(debugColor);
     const deltaX = 0, deltaY = -29;
     translate(deltaX, deltaY);
     drawBody();
