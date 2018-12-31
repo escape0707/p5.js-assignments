@@ -1,4 +1,5 @@
 /// <reference path="../TypeScript/p5.global-mode.d.ts" />
+
 // var foobar2000Logo, androidLogo;
 var androidColor = "#0000ff"; // Changed to blue since red might be too frightening...
 var gui;
