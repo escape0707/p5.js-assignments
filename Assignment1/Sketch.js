@@ -158,7 +158,7 @@ function draw() {
   clear();
   resetMatrix();
 
-  translate(windowWidth / 2, windowHeight / 2);
+  translate(width / 2, height / 2);
   // imageCentered(androidLogo, 0, 0);
   drawAndroid();
 
