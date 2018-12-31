@@ -1,8 +1,9 @@
-var FLAG = -1;
+/// <reference path="../TypeScript/p5.global-mode.d.ts" />
+
 function TEST(subject) {
 	push();
 	noStroke();
-	var c = random(255);
+	let c = random(255);
 	fill(c);
 	rect(0, 0, 200, 100);
 	fill(255 - c);
@@ -19,7 +20,7 @@ const paletteSize = 230,
 	  colorSize = 30;
 	  
 function calcHue(x, y) {
-	var hue;
+	let hue;
 	if (x == 0)
 		if (y > 0)
 			hue = 90;
@@ -35,16 +36,16 @@ function calcHue(x, y) {
 	return hue;
 }
 
-var palette;
+let palette;
 function preload() {
     palette = createGraphics(paletteSize, paletteSize);
     palette.push();
     palette.colorMode(HSB, 360, SBSize, SBSize);
-	var half = paletteSize / 2;
+	let half = paletteSize / 2;
 	palette.translate(half, half);
 	palette.noFill();
-	for (var i = -half; i <= half; i++)
-		for (var j = -half; j <= half; j++)
+	for (let i = -half; i <= half; i++)
+		for (let j = -half; j <= half; j++)
 			if (half - colorCircleWidth <= dist(i, j, 0, 0) &&
 				dist(i, j, 0, 0) <= half) {
 				palette.stroke(calcHue(i, j), SBSize, SBSize);
@@ -53,18 +54,20 @@ function preload() {
     palette.pop();
 }
 
-var canvasL, canvasR, canvasT, canvasB;
-var panelL, panelR, panelT, panelB, panelC;
-var squareL, squareR, squareT, squareB;
+let canvasL, canvasR, canvasT, canvasB;
+let panelL, panelR, panelT, panelB, panelC;
+let squareL, squareR, squareT, squareB;
 function setup() {
 	frameRate(300);
     createCanvas(windowWidth - 20, windowHeight - 20);
+	// let canvas = createCanvas(windowWidth, windowHeight);
+	// canvas.style("display", "block");
     canvasL = 0; canvasR = width - ctrlAreaW - 1;
     canvasT = 0; canvasB = height;
 
     push();
 	translate(width - ctrlAreaW, 0);
-	var divWidth = ctrlAreaW,
+	let divWidth = ctrlAreaW,
 		divHeight = 0;
     fill(30);
     noStroke();
@@ -141,8 +144,8 @@ function setup() {
 	squareT = panelYmid - SBSize / 2; squareB = panelYmid + SBSize / 2;
 }
 
-var curH, curS, curB;
-var mouseArea = -1;
+let curH, curS, curB;
+let mouseArea = -1;
 function draw() {
 	switch(mouseArea) {
 	case 1:
@@ -166,8 +169,8 @@ function updateSB() {
 			  panelT + (paletteSize - SBSize) / 2);
 	noFill();
 	colorMode(HSB, 360, SBSize, SBSize);
-	for (var S = 0; S < SBSize; S++)
-		for (var B = 0; B < SBSize; B++) {
+	for (let S = 0; S < SBSize; S++)
+		for (let B = 0; B < SBSize; B++) {
 			stroke(curH, S, B);
 			point(S, SBSize - B);
 		}
@@ -188,7 +191,7 @@ function updateColor() {
     }
 }
 
-var lastX = -1, lastY = -1, curX, curY;
+let lastX = -1, lastY = -1, curX, curY;
 function paint() {
 	push();
 	colorMode(HSB, 360, SBSize, SBSize, 255);
@@ -203,7 +206,7 @@ function paint() {
 }
 
 function mousePressed() {
-	var d = dist(mouseX, mouseY, panelXmid, panelYmid);
+	let d = dist(mouseX, mouseY, panelXmid, panelYmid);
     if (paletteSize / 2 - colorCircleWidth <= d && d <= paletteSize / 2)
 		mouseArea = 1;
     if (squareL <= mouseX && mouseX <= squareR &&
